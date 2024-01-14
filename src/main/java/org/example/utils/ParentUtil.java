@@ -53,4 +53,8 @@ public class ParentUtil {
 
         return node;
     }
+
+    public Node getParentNode(Node t) {
+        return parentMap.getOrDefault(t, null);
+    }
 }

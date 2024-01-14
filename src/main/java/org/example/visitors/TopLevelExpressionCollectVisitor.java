@@ -41,6 +41,8 @@ public class TopLevelExpressionCollectVisitor extends IVisitor<Node> {
         if (isWrapNode(t) || isConditionNode(t)) {
             for (Node child: t.getAstChildren())
                 if (!(isWrapNode(child) || isConditionNode(child))) {
+                    if (this.parentUtil.getParentNode(child) != t)
+                        continue;
                     topLevelExpressions.computeIfAbsent(
                             (FunctionDeclaration) funcDeclNode, k -> new ArrayList<>()).add(child);
                     parentUtil.topLevelExpressions.add(child);

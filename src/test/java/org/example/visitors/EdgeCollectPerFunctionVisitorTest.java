@@ -6,12 +6,13 @@ import de.fraunhofer.aisec.cpg.graph.Node;
 import de.fraunhofer.aisec.cpg.processing.IStrategy;
 import de.fraunhofer.aisec.cpg.processing.strategy.Strategy;
 import org.example.analyzer.TranslationLoader;
-import org.example.schemes.Edge;
 import org.example.utils.CPGBuilder;
+import org.example.utils.ToJsonUtil;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 class EdgeCollectPerFunctionVisitorTest {
@@ -38,6 +39,9 @@ class EdgeCollectPerFunctionVisitorTest {
                                             topLevelExpressionCollectVisitor.topLevelExpressions,
                                             visitor.cfgEdgeSet, visitor.cdgEdgeSet, visitor.dfgEdgeSet);
         builder.buildCPG();
-        System.out.println();
+
+        List<Map<String, Object>> serializedCPGs =
+                builder.cpgs.stream().map(ToJsonUtil::serializeCPG).toList();
+        System.out.println(serializedCPGs);
     }
 }
